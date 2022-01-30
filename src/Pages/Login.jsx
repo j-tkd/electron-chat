@@ -58,75 +58,73 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginTop: "5rem",
-            padding: "1.5rem",
-            backgroundColor: "#FFF",
-            borderRadius: "15px",
-          }}
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "5rem",
+          padding: "1.5rem",
+          backgroundColor: "#FFF",
+          borderRadius: "15px",
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          Login
+        </Typography>
+        <form
+          style={{ width: "100%", marginTop: "1.5rem" }}
+          onSubmit={handleSubmit}
         >
-          <Typography component="h1" variant="h5">
-            Login
-          </Typography>
-          <form
-            style={{ width: "100%", marginTop: "1.5rem" }}
-            onSubmit={handleSubmit}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="email"
-                  id="email"
-                  label="Email"
-                  variant="outlined"
-                  onChange={handleInputChange}
-                  value={values.email}
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl
-                  sx={{ width: "100%", marginBottom: "1rem" }}
-                  variant="outlined"
-                >
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    password
-                  </InputLabel>
-                  <OutlinedInput
-                    id="password"
-                    name="password"
-                    onChange={handleInputChange}
-                    value={values.password}
-                  />
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                >
-                  Login
-                </Button>
-                <div style={{ marginTop: "2rem" }}>
-                  <Link to="/signup">Create New Accoount</Link>
-                </div>
-              </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="email"
+                id="email"
+                label="Email"
+                variant="outlined"
+                onChange={handleInputChange}
+                value={values.email}
+                autoFocus
+              />
             </Grid>
-          </form>
-        </Box>
-      </Container>
-    </div>
+            <Grid item xs={12}>
+              <FormControl
+                sx={{ width: "100%", marginBottom: "1rem" }}
+                variant="outlined"
+              >
+                <InputLabel htmlFor="outlined-adornment-password">
+                  password
+                </InputLabel>
+                <OutlinedInput
+                  id="password"
+                  name="password"
+                  onChange={handleInputChange}
+                  value={values.password}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+              >
+                Login
+              </Button>
+              <div style={{ marginTop: "2rem" }}>
+                <Link to="/signup">Create New Accoount</Link>
+              </div>
+            </Grid>
+          </Grid>
+        </form>
+      </Box>
+    </Container>
   );
 };
 

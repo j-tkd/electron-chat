@@ -75,7 +75,16 @@ function App() {
           <Route path=":roomId" element={<Room />} />
         </Route>
       </Routes>
-      <Box mt={5}>
+      <Box
+        mt={5}
+        sx={{
+          position: "absolute",
+          bottom: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          marginBottom: "1rem",
+        }}
+      >
         <CopyRight />
       </Box>
     </Container>
