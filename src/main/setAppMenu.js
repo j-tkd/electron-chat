@@ -97,9 +97,6 @@ const setAppMenu = () => {
     });
   }
 
-  for (const t of template) {
-    console.log(t);
-  }
   const appMenu = Menu.buildFromTemplate(template);
 
   Menu.setApplicationMenu(appMenu);

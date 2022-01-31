@@ -26,12 +26,14 @@ import {
 import RoomItem from "../componets/RoomItem";
 import { useNavigate } from "react-router";
 import Room from "../componets/Room";
+import Signout from "../componets/Signout";
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 const chatroomsRef = collection(db, "chatrooms");
 
 export const Rooms = () => {
   const navigate = useNavigate();
+  const [targetRoomId, setTargetRoomId] = useState("");
   const [rooms, setRooms] = useState([]);
   const [newRoom, setNewRoom] = useState("");
 
@@ -87,6 +89,7 @@ export const Rooms = () => {
 
     fetchRooms();
     console.log(`NEW ID: ${newRoomRef.id}`);
+    setTargetRoomId(newRoomRef.id);
     navigate(`/rooms/${newRoomRef.id}`);
   };
 
@@ -103,11 +106,15 @@ export const Rooms = () => {
           sx={{
             width: `calc(100% - ${drawerWidth}px)`,
             ml: `${drawerWidth}px`,
+            backgroundColor: "#EEE",
+            color: "#333",
           }}
         >
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              Permanent drawer
+              {targetRoomId === ""
+                ? "Join a chat room from the sidebar or create your chat room."
+                : rooms.find((r) => r.id === targetRoomId).desc}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -119,18 +126,24 @@ export const Rooms = () => {
             "& .MuiDrawer-paper": {
               width: drawerWidth,
               boxSizing: "border-box",
-              // backgroundColor: "#000",
-              // color: "#fff",
+              backgroundColor: "#333",
+              color: "#ddd",
             },
           }}
           variant="permanent"
           anchor="left"
         >
-          <Toolbar />
+          <Toolbar sx={{ display: "flex", justifyContent: "end" }}>
+            <Signout />
+          </Toolbar>
           <Divider />
           <List>
             {rooms.map((room, index) => (
-              <RoomItem room={room} key={index} />
+              <RoomItem
+                room={room}
+                setTargetRoomId={setTargetRoomId}
+                key={index}
+              />
             ))}
           </List>
           <form
@@ -148,7 +161,11 @@ export const Rooms = () => {
               label="New Room"
               variant="outlined"
               autoFocus
-              style={{ margin: "5px 0px 5px 5px" }}
+              sx={{
+                margin: "1rem 0rem 1rem 1rem",
+                backgroundColor: "#fff",
+                borderRadius: "5px",
+              }}
               onChange={handleNewRoom}
               value={newRoom}
             />
@@ -156,7 +173,7 @@ export const Rooms = () => {
               type="submit"
               variant="contained"
               color="primary"
-              sx={{ margin: "5px" }}
+              sx={{ margin: "1rem" }}
             >
               <AddIcon sx={{ width: 20 }} />
             </Button>
@@ -171,7 +188,8 @@ export const Rooms = () => {
             backgroundColor: "#FFF",
           }}
         >
-          <Room />
+          <Toolbar />
+          <Room targetRoomId={targetRoomId} />
         </Box>
       </Box>
     </div>

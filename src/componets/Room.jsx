@@ -7,21 +7,17 @@ import {
 } from "@firebase/firestore";
 import { Button, List, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+// import { useParams } from "react-router";
 import { db } from "../firebase";
 import Message from "./Message";
 
-export const Room = () => {
-  const { roomId } = useParams();
-
+export const Room = ({ targetRoomId }) => {
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
   const fetchMessages = async (roomId) => {
     const currentRoomRef = collection(db, "chatrooms", roomId, "messages");
     const querySnapshot = await getDocs(currentRoomRef);
-
-    querySnapshot.docs.forEach((doc) => console.log(doc.data()));
 
     if (querySnapshot.docs.length > 0) {
       setMessages(
@@ -39,8 +35,8 @@ export const Room = () => {
   };
 
   useEffect(() => {
-    fetchMessages(roomId);
-  }, []);
+    fetchMessages(targetRoomId);
+  }, [targetRoomId]);
 
   const handleNewMessage = (e) => {
     setNewMessage(e.target.value);
@@ -52,20 +48,26 @@ export const Room = () => {
     if (!newMessage.length) return;
 
     const { currentUser } = getAuth();
-    const { displayName, uid } = currentUser;
+    const { displayName, uid, photoURL } = currentUser;
 
-    const currentRoomRef = collection(db, "chatrooms", roomId, "messages");
+    const currentRoomRef = collection(
+      db,
+      "chatrooms",
+      targetRoomId,
+      "messages"
+    );
 
     const messagesRef = await addDoc(currentRoomRef, {
       text: newMessage,
       createdAt: serverTimestamp(),
       writtenBy: {
-        displayName,
         uid,
+        displayName,
+        photoURL,
       },
     });
     console.log(messagesRef);
-    fetchMessages(roomId);
+    fetchMessages(targetRoomId);
     setNewMessage("");
   };
 

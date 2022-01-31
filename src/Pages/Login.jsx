@@ -46,8 +46,8 @@ export const Login = () => {
     try {
       if (isValid) {
         const { email, password } = values;
-        const user = await signInWithEmailAndPassword(auth, email, password);
-        console.log(`Login Successfully: ${JSON.stringify(user)}`);
+        await signInWithEmailAndPassword(auth, email, password);
+        console.log("Login Successfully");
         navigate("/rooms");
       } else {
         throw new Error("Incorrect email or password");

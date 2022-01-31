@@ -19,12 +19,11 @@ export const Message = ({ messages }) => {
 
   return (
     <>
-      {console.log(messages)}
       {messages.map((msg) => (
         <>
           <ListItem key={msg.id}>
             <ListItemAvatar>
-              <Avatar alt="Jane Doe" src="" />
+              <Avatar alt="Jane Doe" src={msg.photoURL} />
             </ListItemAvatar>
             <ListItemText
               primary={
